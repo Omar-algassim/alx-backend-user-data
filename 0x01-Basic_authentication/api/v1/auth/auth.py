@@ -8,7 +8,17 @@ class Auth:
     """authintication class"""
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """return Fasle"""
-        return False
+        if path is None:
+            return True
+        if not path.endswith('/'):
+            path += '/'
+        if path not in excluded_paths:
+            return True
+        if excluded_paths == [] or excluded_paths is None:
+            return True
+        if path in excluded_paths:
+            return False
+        
 
     def authorization_header(self, request=None) -> str:
         """return None - request will be flask request object"""
