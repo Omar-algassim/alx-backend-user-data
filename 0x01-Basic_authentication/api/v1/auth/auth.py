@@ -10,12 +10,12 @@ class Auth:
         """return Fasle if path in execluded_paths true otherwise"""
         if not path:
             return True
-        if type(path) == str and not path[-1] == '/':
-            path += '/'
         for i in excluded_paths:
             if i[-1] == '*':
                 if path.startswith(i[:-1]):
                     return False
+            if isinstance(path, str) and not path[-1] == '/':
+                path += '/'
             if path == i:
                 return False
 
