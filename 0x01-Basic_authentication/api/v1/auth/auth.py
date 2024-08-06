@@ -14,9 +14,7 @@ class Auth:
             if i[-1] == '*':
                 if path.startswith(i[:-1]):
                     return False
-            if isinstance(path, str) and not path[-1] == '/':
-                path += '/'
-            if path == i:
+            if path.startswith(i):
                 return False
 
         if excluded_paths == [] or excluded_paths is None:
