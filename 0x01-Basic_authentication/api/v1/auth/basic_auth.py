@@ -51,7 +51,7 @@ class BasicAuth(Auth):
                                     user_email: str,
                                     user_pwd: str
                                     ) -> TypeVar('User'):
-        """check the user password and email 
+        """check the user password and email
         if not found user create new user
 
         Args:
@@ -62,10 +62,13 @@ class BasicAuth(Auth):
             return None
         if not user_pwd or not isinstance(user_pwd, str):
             return None
-        exist_user = User.search({'email': user_email})
-        if not exist_user or exist_user == []:
+        try:
+            exist_user = User.search({'email': user_email})
+            if not exist_user or exist_user == []:
+                return None
+            for users in exist_user:
+                if users.is_valid_password(user_pwd):
+                    return users
             return None
-        for users in exist_user:
-            if users.is_valid_password(user_pwd):
-                return users
-        return None
+        except Exception:
+            return None
