@@ -33,3 +33,12 @@ def unauthorized() -> str:
       - the number of each objects
     """
     abort(401)
+
+
+@app_views.route('/forbidden/', strict_slashes=False)
+def Forbidden() -> str:
+    """ GET /api/v1/unauthorized
+    Return:
+      - the number of each objects
+    """
+    abort(403)
