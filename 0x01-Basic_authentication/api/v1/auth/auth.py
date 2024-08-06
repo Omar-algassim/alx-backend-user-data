@@ -10,7 +10,7 @@ class Auth:
         """return Fasle"""
         if not path:
             return True
-        if type(path) == str and not path.endswith('/'):
+        if type(path) == str and not path[-1] == '/':
             path += '/'
         if path not in excluded_paths:
             return True
