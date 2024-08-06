@@ -8,7 +8,7 @@ class Auth:
     """authintication class"""
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """return Fasle"""
-        if path is None:
+        if not path:
             return True
         if not path.endswith('/'):
             path += '/'
