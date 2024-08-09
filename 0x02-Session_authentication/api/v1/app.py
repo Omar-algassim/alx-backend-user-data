@@ -25,7 +25,9 @@ elif getenv('AUTH_TYPE') == 'auth':
 elif getenv('AUTH_TYPE') == 'session_exp_auth':
     from api.v1.auth.session_exp_auth import SessionExpAuth
     auth = SessionExpAuth()
-
+elif getenv('AUTH_TYPE') == 'session_db_auth':
+    from api.v1.auth.session_db_auth import SessionDBAuth
+    auth = SessionDBAuth()
 
 @app.errorhandler(404)
 def not_found(error) -> str:
