@@ -31,7 +31,7 @@ class SessionDBAuth(SessionExpAuth):
         ).seconds > self.session_duration:
             return None
         return user_session[0].user_id
-490c5c75-75df-4db2-aec3-89c0fd0f7439
+
     def destroy_session(self, request=None):
         """destroy session"""
         if request is None:
