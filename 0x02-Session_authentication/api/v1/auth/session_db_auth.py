@@ -8,7 +8,7 @@ from datetime import datetime
 
 class SessionDBAuth(SessionExpAuth):
     """SessionDBAuth class"""
-    
+
     def create_session(self, user_id=None):
         """create session"""
         session_id = super().create_session(user_id)
