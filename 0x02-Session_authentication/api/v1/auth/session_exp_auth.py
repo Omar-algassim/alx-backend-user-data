@@ -7,7 +7,7 @@ from datetime import datetime
 
 class SessionExpAuth(SessionAuth):
     """session expire class"""
-    
+
     def __init__(self):
         """initialize"""
         try:
@@ -36,7 +36,9 @@ class SessionExpAuth(SessionAuth):
             return self.user_id_by_session_id[session_id].get('user_id')
         if 'created_at' not in self.user_id_by_session_id[session_id]:
             return None
-        if (datetime.now() - self.user_id_by_session_id[session_id]['created_at']
-                ).seconds > self.session_duration:
+        session_info = self.user_id_by_session_id[session_id]
+        if (
+            datetime.now() - session_info['created_at']
+        ).seconds > self.session_duration:
             return None
         return self.user_id_by_session_id[session_id].get('user_id')
