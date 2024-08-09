@@ -26,7 +26,7 @@ elif getenv('AUTH_TYPE') == 'session_exp_auth':
     from api.v1.auth.session_exp_auth import SessionExpAuth
     auth = SessionExpAuth()
 
-#e6170b84-8b66-47bf-a5b4-797761102594
+
 @app.errorhandler(404)
 def not_found(error) -> str:
     """ Not found handler
