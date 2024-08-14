@@ -10,7 +10,6 @@ from user import User
 from user import Base
 
 
-
 class DB:
     """DB class
     """
@@ -47,9 +46,18 @@ class DB:
         for key, value in kwargs.items():
             if key not in User.__dict__:
                 raise InvalidRequestError
-            
+
             for user in user_list:
                 if getattr(user, key) == value:
                     return user
         raise NoResultFound
-        
+
+    def update_user(self, user_id: int, **kwargs: any) -> None:
+        """update user attributes which found by user_id
+        """
+        user = self.find_user_by(id=user_id)
+        for key, value in kwargs.items():
+            if key not in User.__dict__:
+                raise ValueError
+            setattr(user, key, value)
+            self._session.commit()
