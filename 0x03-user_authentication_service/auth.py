@@ -9,5 +9,4 @@ from db import DB
 def _hash_password(password: str) -> bytes:
     """hash a password
     """
-    salt = gensalt()
-    return hashpw(password.encode('utf-8'), salt)
+    return hashpw(password.encode(), gensalt())
