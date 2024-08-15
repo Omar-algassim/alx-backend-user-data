@@ -33,10 +33,10 @@ class DB:
 
     def add_user(self, email: str, hashed_password: str) -> User:
         """Create a User object"""
-        u = User(email=email, hashed_password=hashed_password)
-        self._session.add(u)
+        user = User(email=email, hashed_password=hashed_password)
+        self._session.add(user)
         self._session.commit()
-        return u
+        return user
 
     def find_user_by(self, **kwargs) -> str:
         """find user depond on key and value"""
