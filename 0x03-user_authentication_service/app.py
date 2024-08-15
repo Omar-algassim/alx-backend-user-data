@@ -46,6 +46,7 @@ def login() -> str:
     except NoResultFound:
         return jsonify({"message": "no user found"}), 404
 
+
 @app.route('/sessions', methods=['DELETE'], strict_slashes=False)
 def logout() -> str:
     """delete session"""
