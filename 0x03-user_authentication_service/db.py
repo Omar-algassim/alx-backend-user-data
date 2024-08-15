@@ -32,12 +32,11 @@ class DB:
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> User:
-        """Add a user to the database
-        """
-        new_user = User(email=email, hashed_password=hashed_password)
-        self._session.add(new_user)
+        """Create a User object"""
+        u = User(email=email, hashed_password=hashed_password)
+        self._session.add(u)
         self._session.commit()
-        return new_user
+        return u
 
     def find_user_by(self, **kwargs) -> str:
         """find user depond on key and value"""
