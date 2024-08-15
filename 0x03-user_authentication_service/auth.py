@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """auth module"""
-from bcrypt import hashpw, gensalt
+import bcrypt
 from db import DB
 
 
@@ -13,8 +13,7 @@ def _hash_password(password: str) -> bytes:
     Returns:
         bytes: the bytes returned from hashpw
     """
-    return hashpw(password.encode('utf-8'), gensalt())
-
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
 
 class Auth:
