@@ -31,15 +31,15 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email: str, hased_password: str) -> User:
+    def add_user(self, email: str, hashed_password: str) -> User:
         """Add a user to the database
         """
-        new_user = User(email=email, hashed_password=hased_password)
+        new_user = User(email=email, hashed_password=hashed_password)
         self._session.add(new_user)
         self._session.commit()
         return new_user
 
-    def find_user_by(self, **kwargs: any) -> str:
+    def find_user_by(self, **kwargs) -> str:
         """find user depond on key and value"""
         user_list = self._session.query(User).all()
 
