@@ -5,7 +5,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from sqlalchemy.exc import NoResultFound, InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import InvalidRequestError
+
 from user import Base, User
 
 
@@ -32,30 +34,23 @@ class DB:
 
     def add_user(self, email: str, hashed_password: str) -> User:
         """Create a User object"""
-        user = User(email=email, hashed_password=hashed_password)
-        self._session.add(user)
+        u = User(email=email, hashed_password=hashed_password)
+        self._session.add(u)
         self._session.commit()
-        return user
+        return u
 
-    def find_user_by(self, **kwargs) -> str:
-        """find user depond on key and value"""
-        user_list = self._session.query(User).all()
+    def find_user_by(self, **kwargs) -> User:
+        """Create a User object"""
+        u = self._session.query(User).filter_by(**kwargs).first()
+        if u is None:
+            raise NoResultFound
+        return u
 
-        for key, value in kwargs.items():
-            if key not in User.__dict__:
-                raise InvalidRequestError
-
-            for user in user_list:
-                if getattr(user, key) == value:
-                    return user
-        raise NoResultFound
-
-    def update_user(self, user_id: int, **kwargs: any) -> None:
-        """update user attributes which found by user_id
-        """
-        user = self.find_user_by(id=user_id)
-        for key, value in kwargs.items():
-            if key not in User.__dict__:
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """Update a User object"""
+        u = self.find_user_by(id=user_id)
+        for k, v in kwargs.items():
+            if not hasattr(u, k):
                 raise ValueError
-            setattr(user, key, value)
-            self._session.commit()
+            setattr(u, k, v)
+        self._session.commit()
