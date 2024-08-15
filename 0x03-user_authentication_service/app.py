@@ -76,10 +76,9 @@ def get_reset_password_token() -> str:
     """get reset password token"""
     email = request.form.get('email')
     try:
-        self._db.find_user_by(email=email)
         token = AUTH.get_reset_password_token(email)
         return jsonify({"email": email, "reset_token": token}), 200
-    except NoResultFound:
+    except ValueError:
         abort(403)
 
 
